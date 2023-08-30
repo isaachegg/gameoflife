@@ -1,6 +1,7 @@
 const height = 500;
 const width = 500;
 let play = false;
+let slider;
 class Grid {
     columns = 0;
     rows = 0;
@@ -17,11 +18,13 @@ function setup() {
     createCanvas(width, height);
     createStartButton();
     createResetButton();
+    createSpeedSlider()
     randomAssign();
 }
 
 function draw() {
     background(150);
+    frameRate(slider.value() + 1);
     
     for (let x = 0; x < width; x += grid.boxWidth) {
 		for (let y = 0; y < height; y += grid.boxWidth) {
@@ -111,7 +114,7 @@ function mouseClicked() {
 
 function createStartButton() {
     startButton = createButton("Start");
-    startButton.position(width / 2 - 120, height + 30);
+    startButton.position(width / 2 - 220, height + 30);
     startButton.size(100, 40);
     startButton.style('font-size: 30px');
     startButton.style('background: #00C8F9');
@@ -120,10 +123,24 @@ function createStartButton() {
 }
 function createResetButton() {
     resetButton = createButton("Reset");
-    resetButton.position(width / 2 + 10, height + 30);
+    resetButton.position(width / 2 - 110, height + 30);
     resetButton.size(100, 40);
     resetButton.style('font-size: 30px');
     resetButton.style('background: #00C8F9');
     resetButton.style('font-family: fantasy');
     resetButton.mousePressed(resetPressed);
+}
+
+function createSpeedSlider() {
+    slider = createSlider(0, 255, 100);
+    slider.position(280, 550);
+    slider.style('width', '160px');
+
+    textButton = createButton("Set Speed");
+    textButton.position(width / 2 + 70, height + 25);
+    textButton.size(80, 20);
+    textButton.style('font-size: 12px');
+    textButton.style('background: #00C8F9');
+    textButton.style('font-family: fantasy');
+    textButton.attribute('disabled');
 }
